@@ -6,8 +6,25 @@ import 'package:get/get.dart';
 class TasksBindings implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => TasksRepository(Get.find()));
-    Get.lazyPut(() => TasksUsecase(Get.find()));
-    Get.put(TasksController(Get.find()));
+    // Sempre depender de uma abstração ( abstract class )
+    // E não de uma implementação ( class )
+
+    Get.lazyPut<TasksRepository>(
+      () => TasksRepositoryImpl(
+        Get.find(),
+      ),
+    );
+
+    Get.lazyPut<TasksUsecase>(
+      () => TasksUsecaseImpl(
+        Get.find(),
+      ),
+    );
+
+    Get.put(
+      TasksController(
+        Get.find(),
+      ),
+    );
   }
 }

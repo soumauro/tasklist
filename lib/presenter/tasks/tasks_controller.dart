@@ -20,8 +20,16 @@ class TasksController extends GetxController {
 
     if (response.isSuccess) {
       tasks = response.data ?? [];
-    } else {
-      Get.snackbar("Não deu certo", response.message);
+    } else if (response.isWarning) {
+      Get.snackbar(
+        "Ops...",
+        response.message,
+      );
+    } else if (response.isError) {
+      Get.snackbar(
+        "Não deu certo",
+        response.message,
+      );
     }
 
     update();

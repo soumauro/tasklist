@@ -4,21 +4,46 @@ import 'package:get/get.dart';
 
 import '../api_endpoints.dart';
 
-class TasksRepository {
-  final GetConnect _connect;
-  TasksRepository(this._connect);
+abstract class TasksRepository {
+  Future<ResponseModel<List<TaskModel>>> getAllTasks();
+}
 
+class TasksRepositoryImpl implements TasksRepository {
+  final GetConnect _connect;
+  TasksRepositoryImpl(this._connect);
+
+  @override
   Future<ResponseModel<List<TaskModel>>> getAllTasks() async {
     final response = await _connect.get(ApiEndpoints.tasks);
 
     if (response.isOk) {
-      return ResponseModel(
-        data: response.body.map<TaskModel>((map) {
+      return ResponseModel.success(
+        response.body.map<TaskModel>((map) {
           return TaskModel.fromMap(map);
         }).toList(),
       );
     }
 
-    return ResponseModel(message: "Não deu certo!", isSuccess: false);
+    return ResponseModel.error("Não deu certo!");
+  }
+}
+
+class TasksRepositoryDioImpl implements TasksRepository {
+  final GetConnect _connect;
+  TasksRepositoryDioImpl(this._connect);
+
+  @override
+  Future<ResponseModel<List<TaskModel>>> getAllTasks() async {
+    final response = await _connect.get(ApiEndpoints.tasks);
+
+    if (response.isOk) {
+      return ResponseModel.success(
+        response.body.map<TaskModel>((map) {
+          return TaskModel.fromMap(map);
+        }).toList(),
+      );
+    }
+
+    return ResponseModel.error("Não deu certo!");
   }
 }

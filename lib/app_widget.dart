@@ -1,5 +1,6 @@
 import 'package:escola/app_bindings.dart';
 import 'package:escola/presenter/tasks/tasks_page.dart';
+import 'package:escola/themes/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: AppThemes.light,
       initialBinding: AppBindings(),
       initialRoute: TasksPage.route,
       getPages: AppPages.pages,
