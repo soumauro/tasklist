@@ -12,6 +12,7 @@ class TasksBindings implements Bindings {
     Get.lazyPut<TasksRepository>(
       () => TasksRepositoryImpl(
         Get.find(),
+        // so adicionei uma linha 
       ),
     );
 
